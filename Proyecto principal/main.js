@@ -1,6 +1,49 @@
+const formularioCalculadora = document.getElementById('formulario-calculadora');
+const resultado = document.getElementById('resultado');
+
+formularioCalculadora.addEventListener('submit', (evento) => {
+    evento.preventDefault();
+    calcularCalorias();
+});
+
+const multiplicadorTMB = {
+    peso: 10,
+    altura: 6.25,
+    edad: 5
+};
 
 function calcularCalorias() {
+    aparecerResultado();
 
+    const nombre = getValue('#nombre');
+    const identificacion = getValue('#identificacion');
+    const ndocumento = getValue('#ndoc');
+    const edad = parseInt(getValue('#edad'));
+    const peso = parseFloat(getValue('#peso'));
+    const altura = parseFloat(getValue('#altura'));
+    const actividad = parseFloat(getValue('#actividad'));
+    const generoFactor = (document.querySelector('input[name="genero"]:checked').id === 'masculino') ? 5 : -161;
+
+    if (!(nombre && identificacion && edad && peso && altura)) {
+        mostrarMensajeDeError('Asegúrese de llenar todos los campos faltantes');
+        return;
+    }
+
+    const tmbCalculo = (multiplicadorTMB.peso * peso) + (multiplicadorTMB.altura * altura) + (multiplicadorTMB.edad * edad);
+    const calculoCalorias = actividad * (tmbCalculo + generoFactor);
+
+    const grupoPoblacional = (edad >= 15 && edad <= 29) ? "Joven" : (edad >= 30 && edad <= 59) ? "Adulto" : "Adulto Mayor";
+
+    resultado.innerHTML = `
+    <div class="card-body d-flex flex-column justify-content-center align-items-center h-100" id="calculo">
+        <h5 class="card-title h2">Calorías requeridas:</h5>
+        <p class="card-text">El paciente ${nombre} identificado con ${identificacion} NO. ${ndocumento}, requiere un total de ${Math.floor(calculoCalorias)} kcal para el sostenimiento de su TBM.</p>
+        <p class="card-text">Grupo poblacional: ${grupoPoblacional}</p>
+    </div>`;
+}
+
+function getValue(selector) {
+    return document.querySelector(selector).value;
 }
 
 function mostrarMensajeDeError(msg) {
@@ -21,7 +64,6 @@ function mostrarMensajeDeError(msg) {
     }, 5000);
 }
 
-
 // Animaciones
 function aparecerResultado() {
     resultado.style.top = '100vh';
@@ -35,7 +77,7 @@ function aparecerResultado() {
         if (resta > 100) {
             clearInterval(id);
         }
-    }, 10)
+    }, 10);
 }
 
 function desvanecerResultado() {
@@ -49,5 +91,5 @@ function desvanecerResultado() {
             resultado.style.display = 'none';
             resultado.style.top = 0;
         }
-    }, 10)
+    }, 10);
 }
