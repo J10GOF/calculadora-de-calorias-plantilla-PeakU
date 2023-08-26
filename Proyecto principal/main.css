@@ -1,3 +1,4 @@
+/* Scrollbar */
 body::-webkit-scrollbar {
     width: 8px;
 }
@@ -12,52 +13,57 @@ body::-webkit-scrollbar-thumb {
     background-color: rgb(122, 0, 0);
 }
 
-/* header */
+/* Header */
 .header a {
     font-size: 1.5em;
+    color: #fff;
+    transition: color 0.3s;
 }
+
 .header a.active {
     text-decoration: underline;
     color: #ff0000 !important;
 }
 
-
-
-/* main */
+/* Main */
 .row {
     gap: 10px;
     overflow: hidden;
 }
 
 .main-content {
-    background-image: linear-gradient(#000000c7,#00000054), url('/img/cover.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('./img/cover.png') center/cover no-repeat;
+    color: #dfe0e1;
 }
+
 .main-content .card {
-    color:rgb(223, 223, 223);
-    background-color: rgba(0, 0, 0, 0.5)
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 #resultado {
     display: none;
 }
 
-
-/* footer */
+/* Footer */
 .footer {
     background-color: #1c1e20;
     color: #a0a0a0;
     margin: 0;
+    padding: 20px 0;
 }
 
 .footer ul {
     list-style: none;
     font-size: 1.2rem;
+    padding-left: 0;
 }
 
 .footer a {
     text-decoration: none;
-    color: rgb(223, 223, 223);
+    color: #dfe0e1;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: #ff0000;
 }
